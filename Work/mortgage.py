@@ -24,8 +24,9 @@ while principal > 0:
         principal = principal * (1 + rate/12) - payment
         total_paid = total_paid + payment
 
-    print(month, round(total_paid, 2), round(principal, 2))
+    print(f'Month: {month},\tTotal Paid: ${round(total_paid, 2)},\tPrincipal: ${round(principal, 2)}')
+   
     month = month + 1
 
-print('Total paid', round(total_paid, 2)) 
-print('Months', month - 1)
+print(f'Total paid:\t${round(total_paid, 2)}') 
+print(f'Months: \t{month - 1}')
