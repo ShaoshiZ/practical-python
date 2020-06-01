@@ -1,17 +1,33 @@
 # pcost.py
 #
-# Exercise 1.27
+# Exercise 1.27 and Exercise 1.30
 
-total_cost = 0
+import csv
+import sys
 
-with open('Data/portfolio.csv', 'rt') as file:
-    # skip the header
-    next(file)
+def portfolio_cost(filename):
+    cost = 0
 
-    # loop through the rest of the lines
-    for line in file:
-        row = line.split(',')
-        cost = int(row[1]) * float(row[2])
-        total_cost = total_cost + cost
+    with open(filename, 'rt') as file:
+        lines = csv.reader(file)
+        # skip the header
+        next(lines)
 
-print(f'Total cost {total_cost:0.2f}')
+        # loop through the rest of the lines
+        
+        for line in lines:
+            try:
+                share_cost = int(line[1]) * float(line[2])
+                cost = cost + share_cost
+            except ValueError:
+                print('[Warninig] Missing Value!')
+
+    return cost
+
+if len(sys.argv) == 2:
+    filename = sys.argv[1]
+else:
+    filename = 'Data/portfolio.csv'
+
+cost = portfolio_cost(filename)
+print(f'Total cost: {cost:0.2f}')
