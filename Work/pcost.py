@@ -11,16 +11,17 @@ def portfolio_cost(filename):
     with open(filename, 'rt') as file:
         lines = csv.reader(file)
         # skip the header
-        next(lines)
+        headers = next(lines)
 
         # loop through the rest of the lines
         
-        for line in lines:
+        for lineno, line in enumerate(lines, start=1):
+            record = dict(zip(headers, line))
             try:
-                share_cost = int(line[1]) * float(line[2])
+                share_cost = int(record['shares']) * float(record['price'])
                 cost = cost + share_cost
             except ValueError:
-                print('[Warninig] Missing Value!')
+                print(f'Row {lineno}: Bad row: {line}')
 
     return cost
 

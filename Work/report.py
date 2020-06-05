@@ -10,13 +10,12 @@ def read_portfolio(filename):
     
     with open(filename, 'rt') as f:
         rows = csv.reader(f)
-        next(rows)
+        headers = next(rows)
 
         for row in rows:
-            holding = {}
-            holding['name'] = row[0]
-            holding['shares'] = int(row[1])
-            holding['price'] = float(row[2])
+            holding = dict(zip(headers, row))
+            holding['shares'] = int(holding['shares'])
+            holding['price'] = float(holding['price'])
             portfolio.append(holding)
 
     return portfolio
