@@ -65,3 +65,9 @@ def make_report(portfolio, prices):
 
 
     return report
+
+def portfolio_report(portfolio_file, price_file):
+    portfolio = read_portfolio(portfolio_file)
+    prices = read_prices(price_file)
+    report = make_report(portfolio, prices)
+
