@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # report.py
 #
 # Exercise 2.4
@@ -47,9 +48,16 @@ def make_report(portfolio, prices):
         print(f'{name:>10s} {shares:>10d} {price:>10s} {change:>10.2f}')
 
 
-
 def portfolio_report(portfolio_file, price_file):
     portfolio = read_portfolio(portfolio_file)
     prices = read_prices(price_file)
     report = make_report(portfolio, prices)
 
+def main(args):
+    if len(args) != 3:
+        raise SystemExit(f'Usage: {args[0]} portfolio_file price_file')
+    portfolio_report(args[1], args[2])
+
+if __name__ == '__main__':
+    import sys
+    main(sys.argv)

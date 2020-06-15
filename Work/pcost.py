@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # pcost.py
 #
 # Exercise 1.27 and Exercise 1.30
@@ -18,8 +19,13 @@ def portfolio_cost(filename):
 
     return cost
 
-if len(sys.argv) == 2:
-    filename = sys.argv[1]
-else:
-    filename = 'Data/portfolio.csv'
+def main(args):
+    if len(args) != 2:
+        raise SystemExit(f'Usage: {args[0]} portfolio_file')
+    cost = portfolio_cost(args[1])
+    print(f'Total cost: {cost:0.2f}')
 
+
+if __name__ == '__main__':
+    import sys
+    main(sys.argv)
