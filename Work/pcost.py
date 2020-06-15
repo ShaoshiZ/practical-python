@@ -2,26 +2,19 @@
 #
 # Exercise 1.27 and Exercise 1.30
 
+import report
 import csv
 import sys
 
 def portfolio_cost(filename):
+    portfolio = report.read_portfolio(filename)
     cost = 0
-
-    with open(filename, 'rt') as file:
-        lines = csv.reader(file)
-        # skip the header
-        headers = next(lines)
-
-        # loop through the rest of the lines
         
-        for lineno, line in enumerate(lines, start=1):
-            record = dict(zip(headers, line))
-            try:
-                share_cost = int(record['shares']) * float(record['price'])
-                cost = cost + share_cost
-            except ValueError:
-                print(f'Row {lineno}: Bad row: {line}')
+    for rowno, row  in enumerate(portfolio, start=1):
+        try:
+            cost = cost + row['shares'] * row['price']
+        except ValueError:
+            print(f'Row {rowno}: Bad row: {row}')
 
     return cost
 
@@ -30,5 +23,3 @@ if len(sys.argv) == 2:
 else:
     filename = 'Data/portfolio.csv'
 
-cost = portfolio_cost(filename)
-print(f'Total cost: {cost:0.2f}')

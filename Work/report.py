@@ -3,35 +3,18 @@
 # Exercise 2.4
 
 import csv
+from fileparse import parse_csv
 
 def read_portfolio(filename):
-    'Initialize an empty list'
-    portfolio = []
-    
-    with open(filename, 'rt') as f:
-        rows = csv.reader(f)
-        headers = next(rows)
-
-        for row in rows:
-            holding = dict(zip(headers, row))
-            holding['shares'] = int(holding['shares'])
-            holding['price'] = float(holding['price'])
-            portfolio.append(holding)
+    portfolio = parse_csv(filename,select=['name','shares','price'], types=[str,int,float])
 
     return portfolio
 
 
 def read_prices(filename):
-    price = {}
+    pricelist = parse_csv(filename, types=[str,float], has_headers=False)    
+    price = dict(pricelist)
     
-    with open(filename, 'rt') as f:
-        rows = csv.reader(f)        
-        
-        for row in rows:
-            try:
-                price[row[0]] = float(row[1])
-            except(IndexError):
-                pass
     return price
 
 def compute_gain(porfolio, prices):
@@ -64,7 +47,6 @@ def make_report(portfolio, prices):
         print(f'{name:>10s} {shares:>10d} {price:>10s} {change:>10.2f}')
 
 
-    return report
 
 def portfolio_report(portfolio_file, price_file):
     portfolio = read_portfolio(portfolio_file)
