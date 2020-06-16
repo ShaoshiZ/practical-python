@@ -7,13 +7,15 @@ import csv
 from fileparse import parse_csv
 
 def read_portfolio(filename):
-    portfolio = parse_csv(filename,select=['name','shares','price'], types=[str,int,float])
+    with open(filename) as lines:
+        portfolio = parse_csv(lines,select=['name','shares','price'], types=[str,int,float])
 
     return portfolio
 
 
 def read_prices(filename):
-    pricelist = parse_csv(filename, types=[str,float], has_headers=False)    
+    with open(filename) as lines:
+        pricelist = parse_csv(lines, types=[str,float], has_headers=False)    
     price = dict(pricelist)
     
     return price
