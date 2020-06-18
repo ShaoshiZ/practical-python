@@ -17,7 +17,8 @@ class TextTableFormatter(TableFormatter):
     Emit a table in plain-text format
     '''
     def headings(self, headers):
-        print(f'{headers[0]:>10s} {headers[1]:>10s} {headers[2]:>10s} {headers[3]:>10s}', end=' ')
+        for h in headers:
+            print(f'{h:>10s}', end=' ')
         print()
         print(('-'*10 + ' ') * len(headers)) 
 
@@ -64,3 +65,12 @@ def create_formatter(name):
 
     return formatter
 
+def print_table(objects, colnames, formatter):
+    '''
+    Print table with selected columns
+    '''
+    formatter.headings(colnames)
+
+    for obj in objects:
+        rowdata = (str(getattr(obj, colname)) for colname in colnames)
+        formatter.row(rowdata)
