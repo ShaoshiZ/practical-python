@@ -1,3 +1,6 @@
+class FormatError(Exception):
+    pass
+
 class TableFormatter:
     def headings(self, headers):
         '''
@@ -61,7 +64,7 @@ def create_formatter(name):
     elif name == 'html':
         formatter = HTMLTableFormatter()
     else:
-        raise ValueError(f'Unknown format {name}, please choose from txt, csv and html')
+        raise FormatError(f'Unknown format {name}, please choose from txt, csv and html')
 
     return formatter
 
