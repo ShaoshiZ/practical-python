@@ -10,15 +10,7 @@ import sys
 
 def portfolio_cost(filename):
     portfolio = report.read_portfolio(filename)
-    cost = 0
-        
-    for rowno, row  in enumerate(portfolio, start=1):
-        try:
-            cost = cost + row.shares * row.price
-        except ValueError:
-            print(f'Row {rowno}: Bad row: {row}')
-
-    return cost
+    return portfolio.total_cost
 
 def main(args):
     if len(args) != 2:
