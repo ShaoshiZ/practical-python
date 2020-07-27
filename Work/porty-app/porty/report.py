@@ -3,18 +3,22 @@
 #
 # Exercise 2.4
 
-import tableformat
-from stock import Stock
+from . import tableformat
+from .stock import Stock
 import csv
-from fileparse import parse_csv
-from portfolio import Portfolio
+from .fileparse import parse_csv
+from .portfolio import Portfolio
+import logging
+
+logging.basicConfig(
+    filename = 'app.log',
+    filemode = 'w',
+    level = logging.DEBUG,
+)
 
 def read_portfolio(filename, **opts):
     with open(filename) as lines:
-        portfolio_dict = parse_csv(lines,select=['name','shares','price'], types=[str,int,float], **opts)
-
-    portfolio = [ Stock(**d) for d in portfolio_dict ]
-    return Portfolio(portfolio)
+        return Portfolio.from_csv(lines, **opts)
 
 
 def read_prices(filename):

@@ -3,8 +3,8 @@
 #
 # Exercise 1.27 and Exercise 1.30
 
-import stock
-import report
+from . import stock
+from . import report
 import csv
 import sys
 
